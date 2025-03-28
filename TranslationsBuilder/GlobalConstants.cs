@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace TranslationsBuilder
+{
+    class GlobalConstants
+    {
 
-namespace TranslationsBuilder {
+        public const string VersionNumber = "2.3";
+        public const string ApplicationName = "Translations Builder";
+        public const string ApplicationTitle = ApplicationName + " | Version " + VersionNumber;
 
-
-  class GlobalConstants {
-
-    public const string VersionNumber = "2.2";
-    public const string ApplicationName = "Translations Builder";
-    public const string ApplicationTitle = ApplicationName + " | Version " + VersionNumber;
-
-  }
-
+    }
 }
