@@ -30,6 +30,7 @@ namespace TranslationsBuilder {
         {
             components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             gridTranslations = new DataGridView();
             dialogOpenFile = new OpenFileDialog();
@@ -105,8 +106,6 @@ namespace TranslationsBuilder {
             // 
             gridTranslations.AllowUserToAddRows = false;
             gridTranslations.AllowUserToDeleteRows = false;
-            gridTranslations.AllowUserToResizeColumns = false;
-            gridTranslations.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = Color.Black;
             dataGridViewCellStyle1.Font = new Font("Arial Black", 7F, FontStyle.Bold);
@@ -125,7 +124,8 @@ namespace TranslationsBuilder {
             gridTranslations.MultiSelect = false;
             gridTranslations.Name = "gridTranslations";
             gridTranslations.RowHeadersWidth = 24;
-            gridTranslations.RowTemplate.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            gridTranslations.RowsDefaultCellStyle = dataGridViewCellStyle2;
             gridTranslations.RowTemplate.Height = 28;
             gridTranslations.Size = new Size(1288, 640);
             gridTranslations.TabIndex = 0;
@@ -450,6 +450,7 @@ namespace TranslationsBuilder {
             // listSecondaryLanguages
             // 
             listSecondaryLanguages.FormattingEnabled = true;
+            listSecondaryLanguages.ItemHeight = 15;
             listSecondaryLanguages.Location = new Point(8, 52);
             listSecondaryLanguages.Margin = new Padding(3, 2, 3, 2);
             listSecondaryLanguages.Name = "listSecondaryLanguages";

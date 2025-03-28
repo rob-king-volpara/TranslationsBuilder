@@ -162,6 +162,18 @@ namespace TranslationsBuilder
                 string language = translationsTable.Headers[index];
                 gridTranslations.Columns[index].Name = language;
 
+                // first two columns can be 
+                if (index < 2)
+                {
+                    gridTranslations.Columns[index].Width = 100;
+                    gridTranslations.Columns[index].Resizable = DataGridViewTriState.False;
+                }
+                else
+                {
+                    // set the minimum column width
+                    gridTranslations.Columns[index].MinimumWidth = 300;
+                }
+
                 // add context menu to delete secondary language
                 if (index > 3)
                 {
@@ -177,7 +189,6 @@ namespace TranslationsBuilder
                 gridTranslations.Rows.Add(row);
             }
 
-            gridTranslations.AutoResizeColumns();
             gridTranslations.ClearSelection();
             this.Refresh();
         }
