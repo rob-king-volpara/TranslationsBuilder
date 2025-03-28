@@ -333,6 +333,5 @@ history/
 
 # JetBrains Rider
 *.sln.iml
-.vs/
-/TranslationsBuilderTestClient/.vs/TranslationsBuilderTestClient/v17/.futdcache.v2
-/TranslationsBuilderTestClient/.vs/TranslationsBuilderTestClient/v17/.suo
+.vs/*
+/TranslationsBuilderTestClient/.vs/
