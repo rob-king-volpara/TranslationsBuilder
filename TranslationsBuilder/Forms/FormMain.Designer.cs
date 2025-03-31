@@ -29,8 +29,8 @@ namespace TranslationsBuilder {
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             gridTranslations = new DataGridView();
             dialogOpenFile = new OpenFileDialog();
@@ -112,14 +112,15 @@ namespace TranslationsBuilder {
             // 
             gridTranslations.AllowUserToAddRows = false;
             gridTranslations.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = Color.Black;
-            dataGridViewCellStyle3.Font = new Font("Arial Black", 7F, FontStyle.Bold);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            gridTranslations.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            gridTranslations.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.Black;
+            dataGridViewCellStyle1.Font = new Font("Arial Black", 7F, FontStyle.Bold);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            gridTranslations.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             gridTranslations.ColumnHeadersHeight = 29;
             gridTranslations.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             gridTranslations.Dock = DockStyle.Fill;
@@ -130,8 +131,8 @@ namespace TranslationsBuilder {
             gridTranslations.MultiSelect = false;
             gridTranslations.Name = "gridTranslations";
             gridTranslations.RowHeadersWidth = 24;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            gridTranslations.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            gridTranslations.RowsDefaultCellStyle = dataGridViewCellStyle2;
             gridTranslations.RowTemplate.Height = 28;
             gridTranslations.Size = new Size(1185, 609);
             gridTranslations.TabIndex = 0;
