@@ -29,8 +29,8 @@ namespace TranslationsBuilder {
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             gridTranslations = new DataGridView();
             dialogOpenFile = new OpenFileDialog();
@@ -44,6 +44,10 @@ namespace TranslationsBuilder {
             lblDatasetName = new Label();
             lblServerConnection = new Label();
             panel2 = new Panel();
+            clearFilterButton = new Button();
+            applyFilterButton = new Button();
+            label1 = new Label();
+            gridFilterText = new TextBox();
             grpMachineTranslationsAllLanguages = new GroupBox();
             btnFillAllEmptyTranslations = new Button();
             btnGenenrateAllMachineTranslations = new Button();
@@ -90,6 +94,7 @@ namespace TranslationsBuilder {
             toolStripSeparator4 = new ToolStripSeparator();
             menuCommandDeleteSecondaryLanguage = new ToolStripMenuItem();
             toolStripSeparator6 = new ToolStripSeparator();
+            bindingSourceTranslations = new BindingSource(components);
             ((System.ComponentModel.ISupportInitialize)gridTranslations).BeginInit();
             groupDatasetProperties.SuspendLayout();
             panel2.SuspendLayout();
@@ -100,34 +105,35 @@ namespace TranslationsBuilder {
             menuStrip.SuspendLayout();
             statusStrip1.SuspendLayout();
             contextMenuSecondaryLanguageHeader.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)bindingSourceTranslations).BeginInit();
             SuspendLayout();
             // 
             // gridTranslations
             // 
             gridTranslations.AllowUserToAddRows = false;
             gridTranslations.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = Color.Black;
-            dataGridViewCellStyle1.Font = new Font("Arial Black", 7F, FontStyle.Bold);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            gridTranslations.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = Color.Black;
+            dataGridViewCellStyle3.Font = new Font("Arial Black", 7F, FontStyle.Bold);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            gridTranslations.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             gridTranslations.ColumnHeadersHeight = 29;
             gridTranslations.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             gridTranslations.Dock = DockStyle.Fill;
             gridTranslations.EditMode = DataGridViewEditMode.EditProgrammatically;
             gridTranslations.EnableHeadersVisualStyles = false;
-            gridTranslations.Location = new Point(0, 242);
+            gridTranslations.Location = new Point(0, 273);
             gridTranslations.Margin = new Padding(3, 2, 3, 2);
             gridTranslations.MultiSelect = false;
             gridTranslations.Name = "gridTranslations";
             gridTranslations.RowHeadersWidth = 24;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            gridTranslations.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            gridTranslations.RowsDefaultCellStyle = dataGridViewCellStyle4;
             gridTranslations.RowTemplate.Height = 28;
-            gridTranslations.Size = new Size(1288, 640);
+            gridTranslations.Size = new Size(1185, 609);
             gridTranslations.TabIndex = 0;
             gridTranslations.TabStop = false;
             gridTranslations.CellBeginEdit += gridTranslations_CellBeginEdit;
@@ -235,6 +241,10 @@ namespace TranslationsBuilder {
             // panel2
             // 
             panel2.BackColor = SystemColors.ActiveCaption;
+            panel2.Controls.Add(clearFilterButton);
+            panel2.Controls.Add(applyFilterButton);
+            panel2.Controls.Add(label1);
+            panel2.Controls.Add(gridFilterText);
             panel2.Controls.Add(grpMachineTranslationsAllLanguages);
             panel2.Controls.Add(grpImportExportTranslations);
             panel2.Controls.Add(grpMachineTranslationsSingleLanguage);
@@ -245,8 +255,46 @@ namespace TranslationsBuilder {
             panel2.Location = new Point(0, 0);
             panel2.Margin = new Padding(3, 2, 3, 2);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1288, 242);
+            panel2.Size = new Size(1185, 273);
             panel2.TabIndex = 8;
+            // 
+            // clearFilterButton
+            // 
+            clearFilterButton.Location = new Point(513, 242);
+            clearFilterButton.Name = "clearFilterButton";
+            clearFilterButton.Size = new Size(45, 23);
+            clearFilterButton.TabIndex = 14;
+            clearFilterButton.Text = "Clear";
+            clearFilterButton.UseVisualStyleBackColor = true;
+            clearFilterButton.Click += clearFilterButton_Click;
+            // 
+            // applyFilterButton
+            // 
+            applyFilterButton.Location = new Point(432, 242);
+            applyFilterButton.Name = "applyFilterButton";
+            applyFilterButton.Size = new Size(75, 23);
+            applyFilterButton.TabIndex = 13;
+            applyFilterButton.Text = "Apply Filter";
+            applyFilterButton.UseVisualStyleBackColor = true;
+            applyFilterButton.Click += applyFilterButton_Click;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(13, 245);
+            label1.Name = "label1";
+            label1.Size = new Size(66, 15);
+            label1.TabIndex = 12;
+            label1.Text = "Name filter";
+            // 
+            // gridFilterText
+            // 
+            gridFilterText.AcceptsReturn = true;
+            gridFilterText.Location = new Point(85, 242);
+            gridFilterText.Name = "gridFilterText";
+            gridFilterText.Size = new Size(336, 23);
+            gridFilterText.TabIndex = 11;
+            gridFilterText.KeyDown += gridFilterText_KeyDown;
             // 
             // grpMachineTranslationsAllLanguages
             // 
@@ -467,7 +515,7 @@ namespace TranslationsBuilder {
             menuStrip.Location = new Point(0, 0);
             menuStrip.Name = "menuStrip";
             menuStrip.Padding = new Padding(5, 2, 5, 2);
-            menuStrip.Size = new Size(1288, 31);
+            menuStrip.Size = new Size(1185, 31);
             menuStrip.TabIndex = 1;
             menuStrip.Text = "menuMain";
             // 
@@ -579,7 +627,7 @@ namespace TranslationsBuilder {
             statusStrip1.Items.AddRange(new ToolStripItem[] { labelStatusBar, toolStripStatusLabel1, toolStripStatusLabel2 });
             statusStrip1.Location = new Point(0, 882);
             statusStrip1.Name = "statusStrip1";
-            statusStrip1.Size = new Size(1288, 22);
+            statusStrip1.Size = new Size(1185, 22);
             statusStrip1.TabIndex = 9;
             statusStrip1.Text = "statusStrip1";
             // 
@@ -658,7 +706,7 @@ namespace TranslationsBuilder {
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1288, 904);
+            ClientSize = new Size(1185, 904);
             Controls.Add(gridTranslations);
             Controls.Add(statusStrip1);
             Controls.Add(panel2);
@@ -684,6 +732,7 @@ namespace TranslationsBuilder {
             statusStrip1.ResumeLayout(false);
             statusStrip1.PerformLayout();
             contextMenuSecondaryLanguageHeader.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)bindingSourceTranslations).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -747,6 +796,11 @@ namespace TranslationsBuilder {
     private ToolStripSeparator toolStripSeparator4;
     private ToolStripSeparator toolStripSeparator5;
     private ToolStripSeparator toolStripSeparator6;
-  }
+        private Label label1;
+        private TextBox gridFilterText;
+        private Button applyFilterButton;
+        private BindingSource bindingSourceTranslations;
+        private Button clearFilterButton;
+    }
 }
 

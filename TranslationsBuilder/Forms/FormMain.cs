@@ -1,5 +1,7 @@
 ﻿using Microsoft.AnalysisServices.Tabular;
 using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -146,50 +148,59 @@ namespace TranslationsBuilder
 
         }
 
+        private DataTable ConvertToDataTable(IEnumerable<string[]> data, string[] headers)
+        {
+            DataTable dataTable = new DataTable();
+
+            // Add columns
+            foreach (var header in headers)
+            {
+                dataTable.Columns.Add(header);
+            }
+
+            // Add rows
+            foreach (var row in data)
+            {
+                dataTable.Rows.Add(row);
+            }
+
+            return dataTable;
+        }
+
         public void PopulateGridWithTranslations()
         {
-
-            gridTranslations.Rows.Clear();
-            gridTranslations.Columns.Clear();
-
             TranslationsManager.RefreshDataFromServer();
             var translationsTable = TranslationsManager.GetTranslationsTable();
 
-            // populate colum headers
-            gridTranslations.ColumnCount = translationsTable.Headers.Length;
-            for (int index = 0; index <= translationsTable.Headers.Length - 1; index++)
+            // Convert to DataTable
+            DataTable dataTable = ConvertToDataTable(translationsTable.Rows, translationsTable.Headers);
+
+            dataTable.Columns[0].ReadOnly = true;
+            dataTable.Columns[1].ReadOnly = true;
+
+            // Set the data source of the BindingSource
+            bindingSourceTranslations.DataSource = dataTable;
+
+            // Set the data source of the DataGridView to the BindingSource
+            gridTranslations.DataSource = bindingSourceTranslations;
+
+            foreach (int i in new int[] { 0, 1 })
             {
-                string language = translationsTable.Headers[index];
-                gridTranslations.Columns[index].Name = language;
-
-                // first two columns can be 
-                if (index < 2)
-                {
-                    gridTranslations.Columns[index].Width = 100;
-                    gridTranslations.Columns[index].Resizable = DataGridViewTriState.False;
-                }
-                else
-                {
-                    // set the minimum column width
-                    gridTranslations.Columns[index].MinimumWidth = 300;
-                }
-
-                // add context menu to delete secondary language
-                if (index > 3)
-                {
-                    gridTranslations.Columns[index].HeaderCell.ContextMenuStrip = contextMenuSecondaryLanguageHeader;
-                }
-                // only enable translated column cells for update
-                gridTranslations.Columns[index].ReadOnly = index <= 3;
+                gridTranslations.Columns[i].Width = 100;
+                gridTranslations.Columns[i].Resizable = DataGridViewTriState.False;
             }
 
-            // populate rows
-            foreach (var row in translationsTable.Rows)
+            for (int i = 2; i < gridTranslations.Columns.Count; i++)
             {
-                gridTranslations.Rows.Add(row);
+                gridTranslations.Columns[i].MinimumWidth = 300;
+                gridTranslations.Columns[i].HeaderCell.ContextMenuStrip = contextMenuSecondaryLanguageHeader;
+                gridTranslations.Columns[i].ReadOnly = i <= 3;
             }
 
             gridTranslations.ClearSelection();
+
+            ApplyFilter();
+
             this.Refresh();
         }
 
@@ -709,7 +720,6 @@ namespace TranslationsBuilder
 
         private void menuCommandExportLanguageToTranslationSheet_MouseDown(object sender, MouseEventArgs e)
         {
-
             ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
             ToolStrip contextMenu = menuItem.GetCurrentParent() as ToolStrip;
             Point pScreen = contextMenu.PointToScreen(new Point(0, 0)); // e.X, e.Y)); // ;
@@ -723,8 +733,43 @@ namespace TranslationsBuilder
             string targetLanguageId = SupportedLanguages.GetLanguageFromFullName(targetLanguageFullName).LanguageId;
             TranslationsManager.ExportTranslations(targetLanguageId, chkOpenExportInExcel.Checked);
             labelStatusBar.Text = "Translations export Complete";
+        }
 
+        private void ApplyFilter()
+        {
+            string filterText = gridFilterText.Text;
+            string filterColumn = "Name"; // Replace with the actual column name you want to filter on
 
+            if (!string.IsNullOrEmpty(filterText))
+            {
+                bindingSourceTranslations.Filter = $"{filterColumn} LIKE '%{filterText}%'";
+            }
+            else
+            {
+                bindingSourceTranslations.RemoveFilter();
+            }
+        }
+
+        private void applyFilterButton_Click(object sender, EventArgs e)
+        {
+            ApplyFilter();
+        }
+
+        private void gridFilterText_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                applyFilterButton.PerformClick();
+
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void clearFilterButton_Click(object sender, EventArgs e)
+        {
+            gridFilterText.Text = "";
+            applyFilterButton.PerformClick();
         }
     }
 }
