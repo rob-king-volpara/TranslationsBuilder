@@ -335,3 +335,4 @@ history/
 *.sln.iml
 .vs/*
 /TranslationsBuilderTestClient/.vs/
+/SetupFiles/setup.exe
